@@ -22,12 +22,24 @@ export class App extends Component {
   }
 
   handleAddContact(data) {
+    if (this.state.contacts.some(({ name }) => data.name === name)) {
+      alert(`${data.name} is already in contacts`);
+      return;
+    }
+
     const id = nanoid();
 
     const newProduct = { ...data, id };
 
     this.setState((state) => ({
       contacts: state.contacts.concat(newProduct)
+    }));
+  }
+
+  handleRemoveContact(contactId) {
+    console.log(contactId)
+    this.setState((state) => ({
+      contacts: state.contacts.filter(({ id }) => contactId !== id)
     }));
   }
 
@@ -50,7 +62,7 @@ export class App extends Component {
 
         <h2>Contacts</h2>
         <ContactsFilter handleFilterChange={this.setFilter.bind(this)} />
-        <ContactsList contacts={this.filterContacts()} />
+        <ContactsList contacts={this.filterContacts()} handleRemoveContact={this.handleRemoveContact.bind(this)} />
       </>
     );
   }
