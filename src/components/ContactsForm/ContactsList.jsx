@@ -8,7 +8,6 @@ export class ContactsList extends Component {
 
         return (
             <>
-                <h2>Contacts</h2>
                 <ul>
                     {this.props.contacts.map(({ name, number, id }) => {
                         return (
