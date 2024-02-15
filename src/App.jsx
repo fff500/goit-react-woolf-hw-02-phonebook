@@ -11,7 +11,7 @@ export class App extends Component {
     filter: '',
   }
 
-  addContact(data) {
+  addContact = (data) => {
     if (this.state.contacts.some(({ name }) => data.name === name)) {
       alert(`${data.name} is already in contacts.`);
       return;
@@ -22,13 +22,13 @@ export class App extends Component {
     }));
   }
 
-  deleteContact(contactId) {
+  deleteContact = (contactId) => {
     this.setState((state) => ({
       contacts: state.contacts.filter(({ id }) => contactId !== id)
     }));
   }
 
-  setFilter(filterQuery) {
+  setFilter = (filterQuery) => {
     this.setState({ filter: filterQuery });
   }
 
@@ -40,13 +40,13 @@ export class App extends Component {
     return (
       <>
         <h1>Phonebook</h1>
-        <ContactsForm addContact={this.addContact.bind(this)} />
+        <ContactsForm addContact={this.addContact} />
 
         <h2>Contacts</h2>
-        <ContactsFilter changeFilter={this.setFilter.bind(this)} />
+        <ContactsFilter changeFilter={this.setFilter} />
         <ContactsList
           contacts={this.filterContacts()}
-          deleteContact={this.deleteContact.bind(this)}
+          deleteContact={this.deleteContact}
         />
       </>
     );
