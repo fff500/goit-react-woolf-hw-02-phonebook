@@ -1,18 +1,16 @@
-import { Component } from 'react';
-
 import style from './ContactsItem.module.css';
 
-export default class ContactsItem extends Component {
-    handleDeleteClick() {
-        this.props.deleteContact(this.props.id);
+export const ContactsItem = ({ id, name, number, deleteContact }) => {
+    const handleDeleteClick = () => {
+        deleteContact(id);
     }
 
-    render() {
-        return (
-            <li className={style.item}>
-                <span>{this.props.name}: {this.props.number}</span>
-                <button className={style.button} onClick={this.handleDeleteClick.bind(this)}>Delete</button>
-            </li>
-        )
-    }
+
+    return (
+        <li className={style.item}>
+            <span>{name}: {number}</span>
+            <button className={style.button} onClick={handleDeleteClick}>Delete</button>
+        </li>
+    )
+
 }
