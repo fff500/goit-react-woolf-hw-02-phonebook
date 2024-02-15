@@ -12,7 +12,7 @@ export class ContactsForm extends Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         event.preventDefault();
         this.props.addContact(this.state);
         this.setState({
@@ -23,7 +23,7 @@ export class ContactsForm extends Component {
 
     render() {
         return (
-            <form className={style.form} onSubmit={this.handleSubmit.bind(this)}>
+            <form className={style.form} onSubmit={this.handleSubmit}>
                 <label htmlFor="name">Name</label>
                 <input
                     id='name'
