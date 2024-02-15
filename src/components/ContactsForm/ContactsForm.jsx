@@ -1,4 +1,6 @@
-import { Component } from 'react'
+import { Component } from 'react';
+
+import style from './ContactsForm.module.css';
 
 export class ContactsForm extends Component {
     state = {
@@ -12,7 +14,7 @@ export class ContactsForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.handleAddContact(this.state);
+        this.props.addContact(this.state);
         this.setState({
             name: '',
             number: ''
@@ -21,8 +23,10 @@ export class ContactsForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit.bind(this)}>
+            <form className={style.form} onSubmit={this.handleSubmit.bind(this)}>
+                <label htmlFor="name">Name</label>
                 <input
+                    id='name'
                     type="text"
                     name="name"
                     pattern="[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -31,7 +35,9 @@ export class ContactsForm extends Component {
                     onChange={this.handleChange.bind(this)}
                     required
                 />
+                <label htmlFor="number">Namber</label>
                 <input
+                    id='number'
                     type="tel"
                     name="number"
                     pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"

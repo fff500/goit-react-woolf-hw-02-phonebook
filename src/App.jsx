@@ -2,33 +2,29 @@ import { Component } from 'react';
 import { nanoid } from 'nanoid';
 
 import { ContactsForm } from './components/ContactsForm/ContactsForm';
-import { ContactsList } from 'components/ContactsForm/ContactsList';
+import { ContactsList } from 'components/ContactsList/ContactsList';
 import { ContactsFilter } from 'components/ContactsFilter/ContactsFilter';
 
 export class App extends Component {
   constructor() {
     super();
-    this.handleAddContact = this.handleAddContact.bind(this);
+    this.addContact = this.addContact.bind(this);
+    this.setFilter = this.setFilter.bind(this);
+    this.deleteContact = this.deleteContact.bind(this);
   }
 
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   }
 
-  handleAddContact(data) {
+  addContact(data) {
     if (this.state.contacts.some(({ name }) => data.name === name)) {
-      alert(`${data.name} is already in contacts`);
+      alert(`${data.name} is already in contacts.`);
       return;
     }
 
     const id = nanoid();
-
     const newProduct = { ...data, id };
 
     this.setState((state) => ({
@@ -36,8 +32,7 @@ export class App extends Component {
     }));
   }
 
-  handleRemoveContact(contactId) {
-    console.log(contactId)
+  deleteContact(contactId) {
     this.setState((state) => ({
       contacts: state.contacts.filter(({ id }) => contactId !== id)
     }));
@@ -53,16 +48,14 @@ export class App extends Component {
   }
 
   render() {
-    console.log(this.filterContacts())
-
     return (
       <>
         <h1>Phonebook</h1>
-        <ContactsForm handleAddContact={this.handleAddContact} />
+        <ContactsForm addContact={this.addContact} />
 
         <h2>Contacts</h2>
-        <ContactsFilter handleFilterChange={this.setFilter.bind(this)} />
-        <ContactsList contacts={this.filterContacts()} handleRemoveContact={this.handleRemoveContact.bind(this)} />
+        <ContactsFilter changeFilter={this.setFilter} />
+        <ContactsList contacts={this.filterContacts()} deleteContact={this.deleteContact} />
       </>
     );
   }
