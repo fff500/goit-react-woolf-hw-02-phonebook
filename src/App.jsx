@@ -9,31 +9,37 @@ export class App extends Component {
   state = {
     contacts: [],
     filter: '',
-  }
+  };
 
-  addContact = (data) => {
-    if (this.state.contacts.some(({ name }) => data.name === name)) {
+  addContact = data => {
+    if (
+      this.state.contacts.some(
+        ({ name }) => data.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
       alert(`${data.name} is already in contacts.`);
       return;
     }
 
-    this.setState((state) => ({
-      contacts: state.contacts.concat({ ...data, id: nanoid() })
+    this.setState(state => ({
+      contacts: state.contacts.concat({ ...data, id: nanoid() }),
     }));
-  }
+  };
 
-  deleteContact = (contactId) => {
-    this.setState((state) => ({
-      contacts: state.contacts.filter(({ id }) => contactId !== id)
+  deleteContact = contactId => {
+    this.setState(state => ({
+      contacts: state.contacts.filter(({ id }) => contactId !== id),
     }));
-  }
+  };
 
-  setFilter = (filterQuery) => {
+  setFilter = filterQuery => {
     this.setState({ filter: filterQuery });
-  }
+  };
 
   filterContacts() {
-    return this.state.contacts.filter(({ name }) => name.toLowerCase().includes(this.state.filter))
+    return this.state.contacts.filter(({ name }) =>
+      name.toLowerCase().includes(this.state.filter)
+    );
   }
 
   render() {
@@ -51,4 +57,4 @@ export class App extends Component {
       </>
     );
   }
-};
+}
